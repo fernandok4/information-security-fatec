@@ -4,8 +4,49 @@ $(document).ready(function()
 	{
 		$('#result').html(checkStrength($('#password').val()))
 	})	
-		
-	function checkStrength(password)
+});
+
+function verifyAccount(){
+	let params = queryObj()
+	let isValid = false
+	if(checkStrength($('#password').val()) != "Muito curta"){
+		let payload = {
+			"cd_username": params["cd_username"],
+			"ds_token": $('#ds_token').val()
+		}
+		let headers = {
+			'Accept': 'application/json',
+			'Content-Type': 'application/json'
+		}
+		let result = fetch('http://localhost:3000/verify', {method: 'post', 
+		body: JSON.stringify(payload), headers: headers})
+		.then(res => res.text())
+		.then(text => {
+			console.log("TESTEE")
+			if(text == "SUCCESS"){
+				changePassword(payload, headers)
+			}
+		})
+	}
+}
+
+function changePassword(payload, headers){
+	payload.ds_password1 = $('#password').val()
+	payload.ds_password2 = $('#password2').val()
+	fetch('http://localhost:3000/change-password', {method: 'post', 
+		body: JSON.stringify(payload), headers: headers}).then(res => console.log(res.text()))
+}
+
+function queryObj() {
+	var result = {}, keyValuePairs = location.search.slice(1).split("&");
+	keyValuePairs.forEach(function(keyValuePair) {
+		keyValuePair = keyValuePair.split('=');
+		result[decodeURIComponent(keyValuePair[0])] = decodeURIComponent(keyValuePair[1]) || '';
+	});
+	return result;
+}
+
+function checkStrength(password)
 	{
 		var strength = 0
 		
@@ -55,4 +96,3 @@ $(document).ready(function()
 			return 'Forte'
 		}
 	}
-});

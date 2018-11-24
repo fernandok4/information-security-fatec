@@ -39,6 +39,7 @@ app.post('/password-recover', (req, res) => {
 
 app.post('/verify', (req, res) => {
     params = ["cd_username", "ds_token"]
+    console.log(req.body)
     if(!verifyBodyRequest(req.body, params)){
         res.send("Faltando Parametro")
         return

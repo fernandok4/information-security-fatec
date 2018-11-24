@@ -22,9 +22,9 @@
 					<span id="result"></span>
 					<label for="ds_password2"><b>Confirme : </b></label>
 					<input name="ds_password2" id="password2" type="password" placeholder="Digite novamente a senha"/>&nbsp;&nbsp;
-					<button>Salvar</button>
+					<button type="button" id="salvarId" onclick="verifyAccount()">Salvar</button>
 				</form>
-				<form action="http://localhost:3000/password-recover" method="post" id="register">
+				<form action="http://localhost:3000/password-recover" method="post" id="resend">
 					<button type="submit">Reenviar e-mail de verificação</button>
 				</form>
 			</div>			
