@@ -21,14 +21,14 @@ function insertNewUser(user, callback){
             } else {
                 console.log('deu certo')
                 isWorking = 1
+                const mailOptions = {
+                    to : user.cd_email,
+                    subject : "Please confirm your Email account",
+                    html: `<h1>Sua senha para confirmar o email é: ${user.ds_password}</h1>
+                           <a href="http://localhost:3000/verify.html?cd_username=${user.cd_username}">Clique aqui!</a>`
+                }
+                sendEmail(user.cd_email, user.ds_password, mailOptions)
             }
-            const mailOptions = {
-                to : user.cd_email,
-                subject : "Please confirm your Email account",
-                html: `<h1>Sua senha para confirmar o email é: ${password}</h1>
-                       <a href="www.google.com">Clique aqui!</a>`
-            }
-            sendEmail(user.cd_email, user.ds_password, mailOptions)
             callback(isWorking)
         })
 }
@@ -119,8 +119,8 @@ function recoverPassword(user, callback){
                 const mailOptions = {
                     to : cd_email,
                     subject : "Please confirm your Email account",
-                    html: `<h1>Sua nova senha é: ${password}</h1>
-                           <a href="www.google.com">Clique aqui!</a>`
+                    html: `<h1>Sua nova senha é: ${user.ds_password1}</h1>
+                           <a href="http://localhost:3000/verify.html?cd_username=${user.cd_username}>Clique aqui!</a>`
                 }
                 sendEmail(result[0].cd_email, user.ds_password1, mailOptions)
             }
