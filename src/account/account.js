@@ -29,7 +29,7 @@ function insertNewUser(user, callback){
 
 function loginUser(login, callback){
     let hash = crypto.createHash('sha512')
-    let password = hash.update(login.ds_token, 'utf-8')
+    let password = hash.update(login.ds_token || login.ds_password, 'utf-8')
     let sql = `SELECT ds_password = ? as cd_status FROM tb_user WHERE cd_username = ? LIMIT 1`
     var cd_status = "DEFAULT_RESULT"
     conn.query(sql, [password.digest('base64'), login.cd_username], (err, result, fields) => {
@@ -100,9 +100,9 @@ function updateIsVerified(user, callback){
 }
 
 function updatePassword(user, callback){
-    let sql = `UPDATE tb_user SET password = ? WHERE cd_username = ?`
+    let sql = `UPDATE tb_user SET ds_password = ? WHERE cd_username = ?`
     let hash = crypto.createHash('sha512')
-    let password = hash.update(user.ds_password, 'utf-8')
+    let password = hash.update(user.ds_password1, 'utf-8')
     conn.query(sql, [password.digest('base64'), user.cd_username], (err, result, fields) => {
         if(err){
             console.error(err)

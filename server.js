@@ -51,7 +51,10 @@ app.post('/change-password', (req, res) => {
         res.send("Faltando Parametro")
         return
     }
-    account.updatePassword(req.body)
+    if(req.body.ds_password1 == req.body.ds_password2){
+        account.updatePassword(req.body)
+        res.send("mudado")
+    }
 })
 
 app.post('/login', (req, res) => {
