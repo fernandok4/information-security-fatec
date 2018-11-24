@@ -32,15 +32,15 @@ app.post('/verify', (req, res) => {
         res.send("Faltando Parametro")
         return
     }
-    account.loginUser(req.body, () => {
+    account.loginUser(req.body, (cd_status) => {
         if(cd_status == "WRONG_PASSWORD"){
-            res.send("SENHA ERRADA")
+            res.send("WRONG_PASSWORD")
         }
         if(cd_status == "SUCCESS"){
-            res.send("Logado")
+            res.send("SUCCESS")
         }
         if(cd_status == "NOT_FOUND"){
-            res.send("USUARIO NÃO ENCONTRADO")
+            res.send("USER_NOT_FOUND")
         }
     })
 })
@@ -62,22 +62,22 @@ app.post('/login', (req, res) => {
     }
     account.loginUser(req.body, (cd_status) => {
         if(cd_status == undefined){
-            res.send("USUARIO NÃO ENCONTRADO")
+            res.send("USER_NOT_FOUND")
         }
         if(cd_status == "WRONG_PASSWORD"){
-            res.send("SENHA ERRADA")
+            res.send("WRONG_PASSWORD")
         }
         if(cd_status == "SUCCESS"){
             account.isFirstTime(req.body, is_first_time => {
                 if(!is_first_time){
-                    res.send("Verificar")
+                    res.send("VERIFY")
                 } else {
-                    res.send("Logado")
+                    res.send("SUCCESS")
                 }
             })
         }
         if(cd_status == "NOT_FOUND"){
-            res.send("USUARIO NÃO ENCONTRADO")
+            res.send("USER_NOT_FOUND")
         }
     })
     return
