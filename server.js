@@ -5,6 +5,7 @@ const app = express()
 
 app.use(body_parser.urlencoded({extended: true}))
 app.use(body_parser.json())
+app.use(express.static('view'))
 
 app.post('/cadastrar', (req, res) => {
     console.log(req.body)
