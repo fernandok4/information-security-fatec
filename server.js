@@ -35,6 +35,7 @@ app.post('/password-recover', (req, res) => {
         return
     }
     account.recoverPassword(req.body)
+    res.redirect('/login.html')
 })
 
 app.post('/verify', (req, res) => {
@@ -65,9 +66,18 @@ app.post('/change-password', (req, res) => {
     }
     if(req.body.ds_password1 == req.body.ds_password2){
         account.updatePassword(req.body)
-        res.send("mudado")
+        res.send("http://localhost:3000/login.html")
     }
 })
+
+// app.post('/resend-email', (req, res) => {
+//     params = ["cd_username"]
+//     if(!verifyBodyRequest(req.body, params)){
+//         res.send("Faltando Parametro")
+//         return
+//     }
+//     account.recoverPassword(req.body)
+// })
 
 app.post('/login', (req, res) => {
     params = ["cd_username", "ds_password"]
@@ -85,9 +95,9 @@ app.post('/login', (req, res) => {
         if(cd_status == "SUCCESS"){
             account.isFirstTime(req.body, is_first_time => {
                 if(!is_first_time){
-                    res.send("VERIFY")
+                    res.redirect('/verify.html')
                 } else {
-                    res.send("SUCCESS")
+                    res.redirect('/home.html')
                 }
             })
         }

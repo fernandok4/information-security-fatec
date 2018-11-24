@@ -58,6 +58,21 @@ function loginUser(login, callback){
     })
 }
 
+function resendEmail(login, callback){
+    let sql = `SELECT cd_email FROM tb_user WHERE cd_username = ?`
+    conn.query(sql, [login.cd_username], (err, result, fields) => {
+        if (err){
+            console.log(err)
+        } else {
+            if(result == undefined || result.length == 0){
+                return
+            }
+            
+        }
+    })
+}
+
+
 function isFirstTime(login, callback){
     let sql = `SELECT is_verified FROM tb_user WHERE cd_username = ? LIMIT 1`
     conn.query(sql, login.cd_username, (err, result, fields) => {
@@ -111,13 +126,14 @@ function recoverPassword(user, callback){
         if(err){
             console.log(err)
         } else {
+            console.log(result)
             if(result == undefined || result.length == 0){
                 callback()
             } else {
                 user.ds_password1 = createRandomPassword()
                 updatePassword(user)
                 const mailOptions = {
-                    to : cd_email,
+                    to : result[0].cd_email,
                     subject : "Please confirm your Email account",
                     html: `<h1>Sua nova senha é: ${user.ds_password1}</h1>
                            <a href="http://localhost:3000/verify.html?cd_username=${user.cd_username}>Clique aqui!</a>`

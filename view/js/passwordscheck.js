@@ -4,6 +4,8 @@ $(document).ready(function()
 	{
 		$('#result').html(checkStrength($('#password').val()))
 	})	
+
+	document.getElementById('cd_username').value = queryObj().cd_username
 });
 
 function verifyAccount(){
@@ -34,7 +36,8 @@ function changePassword(payload, headers){
 	payload.ds_password1 = $('#password').val()
 	payload.ds_password2 = $('#password2').val()
 	fetch('http://localhost:3000/change-password', {method: 'post', 
-		body: JSON.stringify(payload), headers: headers}).then(res => console.log(res.text()))
+		body: JSON.stringify(payload), headers: headers}).then(res => res.text())
+			.then(text => window.location.href = text)
 }
 
 function queryObj() {

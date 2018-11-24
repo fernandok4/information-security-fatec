@@ -25,9 +25,10 @@
 					<button type="button" id="salvarId" onclick="verifyAccount()">Salvar</button>
 				</form>
 				<form action="http://localhost:3000/password-recover" method="post" id="resend">
+					<input type="hidden" name="cd_username" id="cd_username">
 					<button type="submit">Reenviar e-mail de verificação</button>
 				</form>
 			</div>			
-		</div>		
+		</div>	
 	</body>
 </html>
