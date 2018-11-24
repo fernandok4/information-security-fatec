@@ -131,7 +131,7 @@ function recoverPassword(user, callback){
                 callback()
             } else {
                 user.ds_password1 = createRandomPassword()
-                updatePassword(user)
+                updatePasswordEmail(user)
                 const mailOptions = {
                     to : result[0].cd_email,
                     subject : "Please confirm your Email account",
@@ -156,6 +156,35 @@ function updatePassword(user, callback){
         }
     })
 }
+
+function updatePasswordEmail(user, callback){
+    let sql = `UPDATE tb_user SET ds_password = ?, is_verified = FALSE WHERE cd_username = ?`
+    let hash = crypto.createHash('sha512')
+    let password = hash.update(user.ds_password1, 'utf-8')
+    conn.query(sql, [password.digest('base64'), user.cd_username], (err, result, fields) => {
+        if(err){
+            console.error(err)
+        } else {
+            console.log("updated")
+        }
+    })
+}
+
+function getTimeDiff(user, callback){
+    let sql = `SELECT TIMEDIFF(NOW(), dh_token_password) < '00:10:00' as diff
+    FROM tb_user WHERE cd_username = ?;`
+    conn.query(sql, [user.cd_username], (err, result, fields) => {
+        if(err){
+            console.error(err)
+        } else {
+            if(result == undefined || result.length == 0){
+                callback(false)
+            }
+            callback(result[0].diff)
+        }
+    })
+}
+
 
 function sendEmail(cd_email, password, mailOptions){
     var smtpTransport = nodemailer.createTransport({
@@ -185,5 +214,6 @@ module.exports = {
     isFirstTime: isFirstTime,
     updateIsVerified: updateIsVerified,
     updatePassword: updatePassword,
-    recoverPassword: recoverPassword
+    recoverPassword: recoverPassword,
+    getTimeDiff: getTimeDiff
 }

@@ -45,15 +45,21 @@ app.post('/verify', (req, res) => {
         res.send("Faltando Parametro")
         return
     }
-    account.loginUser(req.body, (cd_status) => {
-        if(cd_status == "WRONG_PASSWORD"){
-            res.send("WRONG_PASSWORD")
-        }
-        if(cd_status == "SUCCESS"){
-            res.send("SUCCESS")
-        }
-        if(cd_status == "NOT_FOUND"){
-            res.send("USER_NOT_FOUND")
+    account.getTimeDiff(req.body, (isOkay) => {
+        if(isOkay){
+            account.loginUser(req.body, (cd_status) => {
+                if(cd_status == "WRONG_PASSWORD"){
+                    res.send("WRONG_PASSWORD")
+                }
+                if(cd_status == "SUCCESS"){
+                    res.send("SUCCESS")
+                }
+                if(cd_status == "NOT_FOUND"){
+                    res.send("USER_NOT_FOUND")
+                }
+            })
+        } else {
+            res.send("a senha expirou")
         }
     })
 })
@@ -95,8 +101,9 @@ app.post('/login', (req, res) => {
         if(cd_status == "SUCCESS"){
             account.isFirstTime(req.body, is_first_time => {
                 if(!is_first_time){
-                    res.redirect('/verify.html')
+                    res.redirect(`/verify.html?cd_username=${req.body.cd_username}`)
                 } else {
+                    res.cookie('usuario', req.body.cd_username)
                     res.redirect('/home.html')
                 }
             })
@@ -106,6 +113,11 @@ app.post('/login', (req, res) => {
         }
     })
     return
+})
+
+app.post('/logout', (req, res) => {
+    res.clearCookie('usuario')
+    res.redirect('/login.html')
 })
 
 app.listen(3000, () => console.log("O servidor está rodando na porta 3000"))
