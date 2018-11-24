@@ -14,16 +14,14 @@
 				<hr>
 			</div>			
 			<div id="content">
-				<form id="register">
-					<label for="username"><b>Usuário : </b></label>
-					<input name="username" id="username" type="text" placeholder="Usuário"/>&nbsp;&nbsp;
-				</form>
-				<form id="register">
-					<label for="password"><b>Senha : </b></label>
-					<input name="password" id="password" type="password" placeholder="Senha"/>&nbsp;&nbsp;
-				</form>
-				<button name="button">Login</button>
-				<button name="button">Esqueci minha senha</button>	
+				<form action="http://localhost:3000/login" method="post" id="register">
+					<label for="cd_username"><b>Usuário : </b></label>
+					<input name="cd_username" id="username" type="text" placeholder="Usuário"/>&nbsp;&nbsp;
+					<label for="ds_password"><b>Senha : </b></label>
+					<input name="ds_password" id="password" type="password" placeholder="Senha"/>&nbsp;&nbsp;
+					<button type="submit">Login</button>
+					<a href="http://localhost:3000/esqueci_minha_senha.html">Esqueci minha senha</a>
+				</form>	
 			</div>			
 		</div>		
 	</body>

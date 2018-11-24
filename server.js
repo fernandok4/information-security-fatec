@@ -9,7 +9,6 @@ app.use(express.static('view'))
 
 app.post('/cadastrar', (req, res) => {
     console.log(req.body)
-    console.log("teste")
     params = ["cd_username", "cd_email", "nm_user"]
     if(!verifyBodyRequest(req.body, params)){
         res.send("Faltando Parametro")
