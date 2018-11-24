@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Password strength checker in jQuery</title>
+		<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro|Open+Sans+Condensed:300|Raleway' rel='stylesheet' type='text/css'>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script><!-- jQuery Library-->
+		<link rel="stylesheet" href="css/passwordscheck.css" /><!-- Include Your CSS file here-->		
+		<script src="js/passwordscheck.js"></script><!-- Include Your jQUery file here-->		
+	</head>	
+	<body>
+		<div id="container">		
+			<div id="header">
+				<h2>Seu e-mail foi verificado com sucesso! Agora defina uma nova senha:</h2>
+				<hr>
+			</div>			
+			<div id="content">
+				<form id="register">
+					<label for="password1"><b>Senha atual : </b></label>
+					<input name="password1" id="password1" type="password" placeholder="Digita a senha atual"/>&nbsp;&nbsp;
+				</form>	
+				<form id="register">
+					<label for="password"><b>Nova senha : </b></label>
+					<input name="password" id="password" type="password" placeholder="Digite a nova senha"/>&nbsp;&nbsp;
+					<span id="result"></span>
+				</form>
+				<form id="register">
+					<label for="password2"><b>Confirme : </b></label>
+					<input name="password2" id="password2" type="password" placeholder="Digite novamente a senha"/>&nbsp;&nbsp;
+				</form>
+				<button name="button">Salvar</button>
+				<button name="button">Reenviar e-mail de verificação</button>	
+			</div>			
+		</div>		
+	</body>
+</html>

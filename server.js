@@ -1,4 +1,4 @@
-const express = require('express')
+﻿const express = require('express')
 const body_parser = require('body-parser')
 const account = require('./src/account/account')
 const app = express()
@@ -7,6 +7,8 @@ app.use(body_parser.urlencoded({extended: true}))
 app.use(body_parser.json())
 
 app.post('/cadastrar', (req, res) => {
+    console.log(req.body)
+    console.log("teste")
     params = ["cd_username", "cd_email", "nm_user"]
     if(!verifyBodyRequest(req.body, params)){
         res.send("Faltando Parametro")
