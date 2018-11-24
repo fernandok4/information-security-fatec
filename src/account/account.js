@@ -100,7 +100,7 @@ function updateIsVerified(user, callback){
 }
 
 function updatePassword(user, callback){
-    let sql = `UPDATE tb_user SET ds_password = ? WHERE cd_username = ?`
+    let sql = `UPDATE tb_user SET ds_password = ?, is_verified = TRUE WHERE cd_username = ?`
     let hash = crypto.createHash('sha512')
     let password = hash.update(user.ds_password1, 'utf-8')
     conn.query(sql, [password.digest('base64'), user.cd_username], (err, result, fields) => {
