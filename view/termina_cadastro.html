@@ -15,20 +15,18 @@
 			</div>			
 			<div id="content">
 				<form id="register">
-					<label for="password1"><b>Senha atual : </b></label>
-					<input name="password1" id="password1" type="password" placeholder="Digita a senha atual"/>&nbsp;&nbsp;
-				</form>	
-				<form id="register">
-					<label for="password"><b>Nova senha : </b></label>
-					<input name="password" id="password" type="password" placeholder="Digite a nova senha"/>&nbsp;&nbsp;
+					<label for="ds_token"><b>Senha atual : </b></label>
+					<input name="ds_token" id="ds_token" type="password" placeholder="Digita a senha atual"/>&nbsp;&nbsp;
+					<label for="ds_password1"><b>Nova senha : </b></label>
+					<input name="ds_password1" id="password" type="password" placeholder="Digite a nova senha"/>&nbsp;&nbsp;
 					<span id="result"></span>
+					<label for="ds_password2"><b>Confirme : </b></label>
+					<input name="ds_password2" id="password2" type="password" placeholder="Digite novamente a senha"/>&nbsp;&nbsp;
+					<button>Salvar</button>
 				</form>
-				<form id="register">
-					<label for="password2"><b>Confirme : </b></label>
-					<input name="password2" id="password2" type="password" placeholder="Digite novamente a senha"/>&nbsp;&nbsp;
+				<form action="http://localhost:3000/password-recover" method="post" id="register">
+					<button type="submit">Reenviar e-mail de verificação</button>
 				</form>
-				<button name="button">Salvar</button>
-				<button name="button">Reenviar e-mail de verificação</button>	
 			</div>			
 		</div>		
 	</body>
