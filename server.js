@@ -26,6 +26,15 @@ app.post('/cadastrar', (req, res) => {
     return
 })
 
+app.post('/password-recover', (req, res) => {
+    params = ["cd_username"]
+    if(!verifyBodyRequest(req.body, params)){
+        res.send("Faltando Parametro")
+        return
+    }
+    account.recoverPassword(req.body)
+})
+
 app.post('/verify', (req, res) => {
     params = ["cd_username", "ds_token"]
     if(!verifyBodyRequest(req.body, params)){

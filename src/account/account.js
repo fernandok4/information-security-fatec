@@ -22,7 +22,13 @@ function insertNewUser(user, callback){
                 console.log('deu certo')
                 isWorking = 1
             }
-            sendEmail(user.cd_email, user.ds_password)
+            const mailOptions = {
+                to : user.cd_email,
+                subject : "Please confirm your Email account",
+                html: `<h1>Sua senha para confirmar o email é: ${password}</h1>
+                       <a href="www.google.com">Clique aqui!</a>`
+            }
+            sendEmail(user.cd_email, user.ds_password, mailOptions)
             callback(isWorking)
         })
 }
@@ -99,6 +105,29 @@ function updateIsVerified(user, callback){
     })
 }
 
+function recoverPassword(user, callback){
+    let sql = `SELECT cd_email FROM tb_user WHERE cd_username = ?`
+    conn.query(sql, [user.cd_username], (err, result, fields) => {
+        if(err){
+            console.log(err)
+        } else {
+            if(result == undefined || result.length == 0){
+                callback()
+            } else {
+                user.ds_password1 = createRandomPassword()
+                updatePassword(user)
+                const mailOptions = {
+                    to : cd_email,
+                    subject : "Please confirm your Email account",
+                    html: `<h1>Sua nova senha é: ${password}</h1>
+                           <a href="www.google.com">Clique aqui!</a>`
+                }
+                sendEmail(result[0].cd_email, user.ds_password1, mailOptions)
+            }
+        }
+    })
+}
+
 function updatePassword(user, callback){
     let sql = `UPDATE tb_user SET ds_password = ?, is_verified = TRUE WHERE cd_username = ?`
     let hash = crypto.createHash('sha512')
@@ -112,16 +141,11 @@ function updatePassword(user, callback){
     })
 }
 
-function sendEmail(cd_email, password){
+function sendEmail(cd_email, password, mailOptions){
     var smtpTransport = nodemailer.createTransport({
         service: "Gmail",
         auth: json_email
     });
-    mailOptions={
-        to : cd_email,
-        subject : "Please confirm your Email account",
-        html: `<h1>Sua senha para confirmar o email é: ${password}</h1>`
-    }
     smtpTransport.sendMail(mailOptions, (error, response) => {
         if(error){
             console.log(error)
@@ -144,5 +168,6 @@ module.exports = {
     loginUser: loginUser,
     isFirstTime: isFirstTime,
     updateIsVerified: updateIsVerified,
-    updatePassword: updatePassword
+    updatePassword: updatePassword,
+    recoverPassword: recoverPassword
 }
