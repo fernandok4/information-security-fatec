@@ -1,4 +1,4 @@
-<!DOCTYPE HTML>
+Ôªø<!DOCTYPE HTML>
 <html>
     <head>
 		<title>Password strength checker in jQuery</title>
@@ -14,16 +14,15 @@
 				<hr>
 			</div>			
 			<div id="content">
-				<form id="register">
-					<label for="username"><b>Usu·rio : </b></label>
-					<input name="username" id="username" type="text" placeholder="Usu·rio"/>&nbsp;&nbsp;
-				</form>
-				<form id="register">
-					<label for="password"><b>Senha : </b></label>
-					<input name="password" id="password" type="password" placeholder="Senha"/>&nbsp;&nbsp;
-				</form>
-				<button name="button">Login</button>
-				<button name="button">Esqueci minha senha</button>	
+				<form action="http://localhost:3000/login" method="post" id="register">
+					<label for="cd_username"><b>Usu√°rio : </b></label>
+					<input name="cd_username" id="username" type="text" placeholder="Usu√°rio"/>&nbsp;&nbsp;
+					<label for="ds_password"><b>Senha : </b></label>
+					<input name="ds_password" id="password" type="password" placeholder="Senha"/>&nbsp;&nbsp;
+					<button type="submit">Login</button>
+					<a href="http://localhost:3000/password-recover.html">Esqueci minha senha</a>
+					<a href="http://localhost:3000/cadastrar.html">Crie uma conta</a>
+				</form>	
 			</div>			
 		</div>		
 	</body>
